@@ -11,7 +11,7 @@ function routes(app){
     app.post('/register',(req,res)=>{
         let body = req.body
         if(body){
-            fetch(`${url}/api/auth/register`, {body})
+            fetch(`${url}/api/auth/register`, {method: "POST",headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)})
             .then(res=>res.json())
             .then(data=>{
                 if(data.user){
@@ -30,10 +30,11 @@ function routes(app){
     app.post('/login', (req,res)=>{
         let body = req.body
         if(body && body.email && body.password){
-            fetch(`${url}/api/auth/login`, {method: "POST",body})
+            fetch(`${url}/api/auth/login`, {method: "POST",headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)})
             .then(res=>res.json())
             .then(data=>{
-                if(data.user){
+                console.log(data, `${url}/api/auth/login`, req.body)
+                if(data.access_token){
                     res.cookies('token',data.access_token,{maxAge: 3600, httpOnly: false})
                     res.json({status: 'success', 'name':data.user.name, 'email':data.user.email, 'id':data.user.id})
                 }else{
@@ -220,7 +221,7 @@ function cookie(id){
 async function create(token, body){
     
     let headers = header(token)
-    let ris = await fetch(`${url}/api/meter`, {method: "POST",headers, body})
+    let ris = await fetch(`${url}/api/meter`, {method: "POST",headers, body: JSON.stringify(body)})
     let data = await ris.json()
     return data
 }
@@ -250,13 +251,13 @@ async function paymentDetails(token,personId,period,limit, order){
 }
 async function createAddress(token, body, personId){
     let headers = header(token)
-    let ris = await fetch(`${url}/api/people/${personId}/addresses`, {method: "POST",headers, body})
+    let ris = await fetch(`${url}/api/people/${personId}/addresses`, {method: "POST",headers, body: JSON.stringify(body)})
     let data = await ris.json()
     return data
 }
 async function updateAddress(token, body, personId){
     let headers = header(token)
-    let ris = await fetch(`${url}/api/people/${personId}/addresses`, {method: "PUT",headers, body})
+    let ris = await fetch(`${url}/api/people/${personId}/addresses`, {method: "PUT",headers, body: JSON.stringify(body)})
     let data = await ris.json()
     return data
 }
@@ -280,13 +281,13 @@ async function personMeters(token, person){
 }
 async function createPerson(token, body){
     let headers = header(token)
-    let ris = await fetch(`${url}/api/people`, {method: "POST",headers, body})
+    let ris = await fetch(`${url}/api/people`, {method: "POST",headers, body: JSON.stringify(body)})
     let data = await ris.json()
     return data
 }
 async function updatePerson(token, body, personId){
     let headers = header(token)
-    let ris = await fetch(`${url}/api/people/${personId}`, {method: "PUT",headers, body})
+    let ris = await fetch(`${url}/api/people/${personId}`, {method: "PUT",headers, body: JSON.stringify(body)})
     let data = await ris.json()
     return data
 }
