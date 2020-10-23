@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-let url = 'http://159.89.100.23/:8081'
+let url = 'http://159.89.100.23:8081'
 
 let header =(token)=>{return {
     "Content-Type": "application/json",
@@ -20,6 +20,8 @@ function routes(app){
                 }else{
                     res.json({status:'Failed'})
                 }
+            }).catch(e=>{
+                res.json({status:'Failed'})
             })
         }else{
             res.json({status:'Failed'})
@@ -37,6 +39,8 @@ function routes(app){
                 }else{
                     res.json({status:'Failed'})
                 }
+            }).catch(e=>{
+                res.json({status:'Failed'})
             })
         }else{
             res.json({status:'Failed'})
