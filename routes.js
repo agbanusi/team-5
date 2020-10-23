@@ -1,5 +1,5 @@
 const fetch = require('node-fetch');
-let url = 'http://http://159.89.100.23/'
+let url = 'http://159.89.100.23/:8081'
 
 let header =(token)=>{return {
     "Content-Type": "application/json",
