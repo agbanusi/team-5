@@ -15,8 +15,8 @@ function routes(app){
             .then(res=>res.json())
             .then(data=>{
                 if(data.user){
-                    res.cookies('token',data.access_token,{maxAge: 3600, httpOnly: false})
-                    res.json({status: 'success', 'name':data.user.name, 'email':data.user.email, 'id':data.user.id})
+                    res.cookie('token',data.access_token,{maxAge: 3600, httpOnly: false})
+                    res.json({status: 'success', 'name':data.user.name, 'email':data.user.email, 'id':data.user.id, 'token':data.access_token})
                 }else{
                     res.json({status:'Failed'})
                 }
@@ -33,15 +33,14 @@ function routes(app){
             fetch(`${url}/api/auth/login`, {method: "POST",headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)})
             .then(res=>res.json())
             .then(data=>{
-                console.log(data, `${url}/api/auth/login`, req.body)
                 if(data.access_token){
-                    res.cookies('token',data.access_token,{maxAge: 3600, httpOnly: false})
+                    res.cookie('token',data.access_token,{maxAge: 3600, httpOnly: false})
                     res.json({status: 'success', 'name':data.user.name, 'email':data.user.email, 'id':data.user.id})
                 }else{
-                    res.json({status:'Failed'})
+                    res.json({status:'ailed'})
                 }
             }).catch(e=>{
-                res.json({status:'Failed'})
+                res.json({status:'failed'})
             })
         }else{
             res.json({status:'Failed'})
