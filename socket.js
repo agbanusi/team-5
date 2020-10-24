@@ -3,7 +3,7 @@ const os =require('os')
 //const inter = os.networkInterfaces()
 //const ipv4 = inter['Locaal Area Connection']
 //console.log(inter,'/n', ipv4, '/n')
-let url ="http://127.0.0.1:5000"
+let url ="http://127.0.0.1:8082"
 let meters=[]
 
 function sockets(io){

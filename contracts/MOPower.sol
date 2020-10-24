@@ -187,7 +187,7 @@ contract MOPower {
     function getMeterTransactions(uint _meterId) public returns (Transaction[] memory _meterTransactions){
         _meterTransactions = meterTransactions_map[_meterId];
         
-        string msg = "meter transactions fetched successfully";
+        string memory msg = "meter transactions fetched successfully";
         if(_meterTransactions.length == 0)
             msg = "transactions not found";
         
@@ -210,9 +210,9 @@ contract MOPower {
                 break;
             }
         }
-        string msg = "meter transaction fetched successfully";
+        string memory msg = "meter transaction fetched successfully";
         
-        if(_transaction == null)
+        if(_transaction.id<1)
             msg = "transaction not found";
         
         emit trasactionFetched(_transaction, msg);
