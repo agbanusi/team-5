@@ -40,12 +40,10 @@ function routes(app, lms, accounts){
             fetch(`${url}/api/auth/login`, {method: "POST",headers:{'Content-Type':'application/json'}, body:JSON.stringify(body)})
             .then(res=>res.json())
             .then(async(data)=>{
-                console.log(data)
                 if(data.access_token){
-                    console.log(data)
                     let datum = await personDetails(data.access_token, data.user.id)
-                    console.log(datum)
-                    lms.addConsumer([data.user.id, datum.meters.length ], {from: accounts[0]})
+                    let length = datum.meters? data.meters.length : 0
+                    lms.addConsumer([data.user.id, length ], {from: accounts[0]})
                     .then(resu=>{
                         console.log(resu)
                         res.cookie('token',data.access_token,{maxAge: 3600, httpOnly: false})
@@ -57,9 +55,11 @@ function routes(app, lms, accounts){
                     })
                     
                 }else{
+                    console.log('over')
                     res.json({status:'Failed'})
                 }
             }).catch(e=>{
+                console.log(e, 'here')
                 res.json({status:'Failed'})
             })
         }else{
