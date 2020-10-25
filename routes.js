@@ -352,7 +352,8 @@ function routes(app, lms, accounts){
     })
 }
 function cookie(req,id){
-    let rawCookie = req.cookies.split('; ')
+    let rawCookie = req.cookies.split(';')
+    rawCookie = rawCookie.map(i=>i.trim())
     let refCookie = rawCookie.map(i=>{
         let lis = i.split('=')
         return {id:lis[0], value:lis[1]}
