@@ -193,3 +193,10 @@ returns addresses as the lsit of the addresses of the user
     PUT api/people/{person}
     ```
     see doc for body details
+
+    ## Running the Mobile App
+    - Clone the repo
+    - Change directory to ```client```
+    - Run ```npm install```
+    - Run ```expo start```
+    - Download expo from playstore and follow the instruction on the terminal
